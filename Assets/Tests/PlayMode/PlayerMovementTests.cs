@@ -10,7 +10,7 @@ public class PlayerMovementTests
     public IEnumerator MoveForward()
     {
         var player = new GameObject().AddComponent<Player>();
-        player.Move(Vector3.forward);
+        player.SetMoveDirection(Vector3.forward);
         yield return new WaitForSeconds(Time.fixedDeltaTime);
         Assert.AreEqual(new Vector3(0, 0, player.Speed * Time.fixedDeltaTime), player.transform.position);
     }
@@ -19,7 +19,7 @@ public class PlayerMovementTests
     public IEnumerator MoveBackward()
     {
         var player = new GameObject().AddComponent<Player>();
-        player.Move(Vector3.back);
+        player.SetMoveDirection(Vector3.back);
         yield return new WaitForSeconds(Time.fixedDeltaTime);
         Assert.AreEqual(new Vector3(0, 0, -player.Speed * Time.fixedDeltaTime), player.transform.position);
     }
@@ -28,7 +28,7 @@ public class PlayerMovementTests
     public IEnumerator MoveLeft()
     {
         var player = new GameObject().AddComponent<Player>();
-        player.Move(Vector3.left);
+        player.SetMoveDirection(Vector3.left);
         yield return new WaitForSeconds(Time.fixedDeltaTime);
         Assert.AreEqual(new Vector3(-player.Speed * Time.fixedDeltaTime, 0, 0), player.transform.position);
     }
@@ -37,7 +37,7 @@ public class PlayerMovementTests
     public IEnumerator MoveRight()
     {
         var player = new GameObject().AddComponent<Player>();
-        player.Move(Vector3.right);
+        player.SetMoveDirection(Vector3.right);
         yield return new WaitForSeconds(Time.fixedDeltaTime);
         Assert.AreEqual(new Vector3(player.Speed * Time.fixedDeltaTime, 0, 0), player.transform.position);
     }
