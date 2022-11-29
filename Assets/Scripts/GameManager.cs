@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         CheckPoints();
         previousCollectableType = collectable.Type;
         collectable.Collected();
+        SpawnManager.Instance.SpawnObject();
     }
 
     public int GetCurrentLevel() => currentLevel;
