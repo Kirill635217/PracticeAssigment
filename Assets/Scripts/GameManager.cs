@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
         100, 100, 400
     };
 
-
     private int currentLevel = 1;
     private int points;
 
@@ -25,6 +24,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        if(GameStats.Instance != null)
+            GameStats.Instance.StartCapture();
     }
 
     void CheckPoints()
@@ -55,7 +60,10 @@ public class GameManager : MonoBehaviour
         CheckPoints();
         previousCollectableType = collectable.Type;
         collectable.Collected();
-        SpawnManager.Instance.SpawnObject();
+        if(GameStats.Instance != null)
+            GameStats.Instance.ObjectCollected();
+        if(SpawnManager.Instance != null)
+            SpawnManager.Instance.SpawnObject();
     }
 
     public int GetCurrentLevel() => currentLevel;
