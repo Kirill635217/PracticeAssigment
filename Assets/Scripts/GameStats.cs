@@ -11,4 +11,9 @@ public class GameStats : StatsCapture
     {
         Instance = this;
     }
+
+    private void Start()
+    {
+        StartCapture();
+    }
 }

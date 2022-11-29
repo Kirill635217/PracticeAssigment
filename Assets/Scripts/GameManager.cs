@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,20 +19,14 @@ public class GameManager : MonoBehaviour
 
     public int Points => points;
 
-
+    private IStatsConverter statsConverter;
     public static GameManager Instance;
 
     private void Awake()
     {
         Instance = this;
     }
-
-    private void Start()
-    {
-        if(GameStats.Instance != null)
-            GameStats.Instance.StartCapture();
-    }
-
+    
     void CheckPoints()
     {
         if (points < PointsToNextLevel[Mathf.Clamp(currentLevel - 1, 0, PointsToNextLevel.Length - 1)]) return;
@@ -46,6 +41,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EndGame()
     {
+        statsConverter ??= new StatsConverter();
+        if(GameStats.Instance != null)
+            SaveManager.SaveAsTextFile(Application.streamingAssetsPath, "GameStats", statsConverter.ConvertToJson(GameStats.Instance.CapturedStats));
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Main");
     }
@@ -60,9 +58,9 @@ public class GameManager : MonoBehaviour
         CheckPoints();
         previousCollectableType = collectable.Type;
         collectable.Collected();
-        if(GameStats.Instance != null)
+        if (GameStats.Instance != null)
             GameStats.Instance.ObjectCollected();
-        if(SpawnManager.Instance != null)
+        if (SpawnManager.Instance != null)
             SpawnManager.Instance.SpawnObject();
     }
 

@@ -9,8 +9,18 @@ public class StatsConverterTests
         var statsCapture = new GameObject().AddComponent<GameStats>();
         var statsConverter = new StatsConverter();
         statsCapture.Initialize(1, -2, 2);
-        var target = @"{""SessionDuration"":1.0,""Score"":-2,""ObjectsCollected"":2}";
-        Debug.Log(statsConverter.ConvertToJason(statsCapture.CapturedStats));
-        Assert.AreEqual(target, statsConverter.ConvertToJason(statsCapture.CapturedStats));
+        const string target = @"{""SessionDuration"":1.0,""Score"":-2,""ObjectsCollected"":2}";
+        Debug.Log(statsConverter.ConvertToJson(statsCapture.CapturedStats));
+        Assert.AreEqual(target, statsConverter.ConvertToJson(statsCapture.CapturedStats));
+    }
+    
+    [Test]
+    public void ConvertFromJsonTest()
+    {
+        var statsCaptureTarget = new GameObject().AddComponent<GameStats>();
+        var statsConverter = new StatsConverter();
+        statsCaptureTarget.Initialize(1, -2, 2);
+        const string json = @"{""SessionDuration"":1.0,""Score"":-2,""ObjectsCollected"":2}";
+        Assert.AreEqual(statsCaptureTarget.CapturedStats, statsConverter.ConvertFromJson(json));
     }
 }
