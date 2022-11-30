@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
+    public void PlayerStuck()
+    {
+        if(GameStats.Instance != null && GameStats.Instance.CapturedStats.SessionDuration - GameStats.Instance.TimeOfLastCollectable > 6)
+            StartCoroutine(EndGame());
+    } 
+
     public void CollectObject(ICollectable collectable)
     {
         if (previousCollectableType != collectable.Type)
@@ -61,7 +67,7 @@ public class GameManager : MonoBehaviour
         if (GameStats.Instance != null)
             GameStats.Instance.ObjectCollected();
         if (SpawnManager.Instance != null)
-            SpawnManager.Instance.SpawnObject();
+            SpawnManager.Instance.SpawnCollectable();
     }
 
     public int GetCurrentLevel() => currentLevel;

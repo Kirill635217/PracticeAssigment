@@ -5,31 +5,23 @@ using UnityEngine;
 
 public abstract class StatsCapture : MonoBehaviour
 {
-    [Serializable]
-    public struct Stats : IStats
-    {
-        public float SessionDuration { get; set; }
-        public int Score { get; set; }
-        public int ObjectsCollected { get; set; }
-    }
-
     private Stats capturedStats;
     public Stats CapturedStats => capturedStats;
     private bool isCapturing;
 
-    public virtual void StartCapture()
+    public void StartCapture()
     {
+        capturedStats ??= new Stats();
         isCapturing = true;
     }
 
-    public virtual void Initialize(int sessionDuration, int score, int objectsCollected)
+    public void Initialize(int sessionDuration, int score, int objectsCollected)
     {
-        capturedStats.SessionDuration = sessionDuration;
-        capturedStats.Score = score;
-        capturedStats.ObjectsCollected = objectsCollected;
+        capturedStats ??= new Stats();
+        capturedStats.Initialize(sessionDuration, score, objectsCollected);
     }
 
-    public void ObjectCollected() => capturedStats.ObjectsCollected++;
+    public virtual void ObjectCollected() => capturedStats.ObjectsCollected++;
     
     void Update()
     {

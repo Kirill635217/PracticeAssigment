@@ -21,6 +21,6 @@ public class StatsConverterTests
         var statsConverter = new StatsConverter();
         statsCaptureTarget.Initialize(1, -2, 2);
         const string json = @"{""SessionDuration"":1.0,""Score"":-2,""ObjectsCollected"":2}";
-        Assert.AreEqual(statsCaptureTarget.CapturedStats, statsConverter.ConvertFromJson(json));
+        Assert.AreEqual(true, statsCaptureTarget.CapturedStats.Equals(statsConverter.ConvertFromJson(json)));
     }
 }

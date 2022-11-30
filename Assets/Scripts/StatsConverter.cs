@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StatsConverter : IStatsConverter
 {
-    public string ConvertToJson(StatsCapture.Stats stats) => JsonConvert.SerializeObject(stats);
+    public string ConvertToJson(Stats statsDefault) => JsonConvert.SerializeObject(statsDefault);
 
-    public StatsCapture.Stats ConvertFromJson(string statsJson) => JsonConvert.DeserializeObject<StatsCapture.Stats>(statsJson);
+    public Stats ConvertFromJson(string statsJson) => JsonConvert.DeserializeObject<Stats>(statsJson);
 }

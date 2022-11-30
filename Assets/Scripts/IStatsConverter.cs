@@ -1,5 +1,6 @@
 public interface IStatsConverter
 {
-    string ConvertToJson(StatsCapture.Stats stats);
-    StatsCapture.Stats ConvertFromJson(string statsJson);
+    string ConvertToJson(Stats statsDefault);
+    
+    Stats ConvertFromJson(string statsJson);
 }

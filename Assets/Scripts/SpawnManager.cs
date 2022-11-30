@@ -6,7 +6,10 @@ using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> prefabs;
+    [Range(0, 50)]
+    [SerializeField] private int initialSpawn;
+    [SerializeField] private List<GameObject> collectablePrefabs;
+    [SerializeField] private List<GameObject> nonCollectablePrefabs;
     [SerializeField] private Transform spawnArea;
     private List<GameObject> pool;
 
@@ -14,17 +17,27 @@ public class SpawnManager : MonoBehaviour
 
     public static SpawnManager Instance;
 
-    public void SpawnObject()
+    public void SpawnCollectable()
     {
         Vector3 position = Vector3.zero;
-        var selectedPrefab = prefabs[Random.Range(0, prefabs.Count)];
+        var selectedPrefab = collectablePrefabs[Random.Range(0, collectablePrefabs.Count)];
         GetRandomSpawnPosition(ref position, selectedPrefab.transform.lossyScale.y / 2);
-        while (Vector3.Distance(position, player.transform.position) < 1)
+        while (Vector3.Distance(position, player.transform.position) < 1.5f)
+            GetRandomSpawnPosition(ref position, selectedPrefab.transform.lossyScale.y / 2);
+        Instantiate(selectedPrefab, position, Quaternion.identity);
+    }
+    
+    public void SpawnNonCollectable()
+    {
+        Vector3 position = Vector3.zero;
+        var selectedPrefab = nonCollectablePrefabs[Random.Range(0, nonCollectablePrefabs.Count)];
+        GetRandomSpawnPosition(ref position, selectedPrefab.transform.lossyScale.y / 2);
+        while (Vector3.Distance(position, player.transform.position) < 1.5f)
             GetRandomSpawnPosition(ref position, selectedPrefab.transform.lossyScale.y / 2);
         Instantiate(selectedPrefab, position, Quaternion.identity);
     }
 
-    void GetRandomSpawnPosition(ref Vector3 position, float y)
+    private void GetRandomSpawnPosition(ref Vector3 position, float y)
     {
         position = new Vector3(Random.Range(-spawnArea.lossyScale.x / 2, spawnArea.lossyScale.x / 2), y,
             Random.Range(-spawnArea.lossyScale.z / 2, spawnArea.lossyScale.z / 2));
@@ -35,9 +48,19 @@ public class SpawnManager : MonoBehaviour
         Instance = this;
     }
 
+    private IEnumerator SpawnCubes()
+    {
+        yield return new WaitForSeconds(Random.Range(0.3f, 2));
+        SpawnNonCollectable();
+        StartCoroutine(SpawnCubes());
+    }
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         player = FindObjectOfType<Player>();
+        for (int i = 0; i < initialSpawn; i++)
+            SpawnCollectable();
+        StartCoroutine(SpawnCubes());
     }
 }

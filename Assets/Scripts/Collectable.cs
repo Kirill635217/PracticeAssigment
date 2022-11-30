@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 
 public class Collectable : MonoBehaviour, ICollectable
 {
-    
     [SerializeField] private List<int> value;
     [SerializeField] private ICollectable.Types type;
     
