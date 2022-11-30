@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : CharacterMovement
 {
+    [SerializeField] private Vector3[] modelScalePerLevel;
     [SerializeField] private GameObject model;
     private Vector3 previousPosition = new Vector3(0, .5f, 0);
 
@@ -55,6 +56,9 @@ public class Player : CharacterMovement
 
     private void Update()
     {
-        // SetMoveDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        SetMoveDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        model.transform.localScale = modelScalePerLevel[GameManager.Instance.GetCurrentLevel() - 1];
+        model.transform.localPosition = new Vector3(model.transform.localPosition.x, model.transform.localScale.y - 1,
+            model.transform.localPosition.z);
     }
 }

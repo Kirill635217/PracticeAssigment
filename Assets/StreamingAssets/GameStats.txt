@@ -1,1 +1,1 @@
-{"SessionDuration":42.1262436,"Score":1,"ObjectsCollected":1}
+{"SessionDuration":16.0377445,"Score":244,"ObjectsCollected":6}
