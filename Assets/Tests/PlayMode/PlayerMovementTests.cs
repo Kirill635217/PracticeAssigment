@@ -11,8 +11,8 @@ public class PlayerMovementTests
     {
         var player = new GameObject().AddComponent<Player>();
         player.SetMoveDirection(Vector3.forward);
-        yield return new WaitForSeconds(Time.fixedDeltaTime);
-        Assert.AreEqual(new Vector3(0, 0, player.Speed * Time.fixedDeltaTime), player.transform.position);
+        yield return new WaitForSeconds(0.2f);
+        Assert.AreEqual(true, Vector3.Distance(new Vector3(0, 0, player.Speed * 0.2f), player.transform.position) < .1f);
     }
 
     [UnityTest]
@@ -20,8 +20,8 @@ public class PlayerMovementTests
     {
         var player = new GameObject().AddComponent<Player>();
         player.SetMoveDirection(Vector3.back);
-        yield return new WaitForSeconds(Time.fixedDeltaTime);
-        Assert.AreEqual(new Vector3(0, 0, -player.Speed * Time.fixedDeltaTime), player.transform.position);
+        yield return new WaitForSeconds(0.2f);
+        Assert.AreEqual(true, Vector3.Distance(new Vector3(0, 0, -player.Speed * 0.2f), player.transform.position) < .1f);
     }
 
     [UnityTest]
@@ -29,8 +29,8 @@ public class PlayerMovementTests
     {
         var player = new GameObject().AddComponent<Player>();
         player.SetMoveDirection(Vector3.left);
-        yield return new WaitForSeconds(Time.fixedDeltaTime);
-        Assert.AreEqual(new Vector3(-player.Speed * Time.fixedDeltaTime, 0, 0), player.transform.position);
+        yield return new WaitForSeconds(0.2f);
+        Assert.AreEqual(true, Vector3.Distance(new Vector3(-player.Speed * 0.2f, 0, 0), player.transform.position) < .1f);
     }
 
     [UnityTest]
@@ -38,7 +38,7 @@ public class PlayerMovementTests
     {
         var player = new GameObject().AddComponent<Player>();
         player.SetMoveDirection(Vector3.right);
-        yield return new WaitForSeconds(Time.fixedDeltaTime);
-        Assert.AreEqual(new Vector3(player.Speed * Time.fixedDeltaTime, 0, 0), player.transform.position);
+        yield return new WaitForSeconds(0.2f);
+        Assert.AreEqual(true, Vector3.Distance(new Vector3(player.Speed * 0.2f, 0, 0), player.transform.position) < .1f);
     }
 }

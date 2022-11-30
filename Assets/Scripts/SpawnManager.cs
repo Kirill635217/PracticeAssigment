@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
 {
     [Range(0, 50)]
     [SerializeField] private int initialSpawn;
+    [SerializeField] private Vector2 cubeSpawnTimeRange;
     [SerializeField] private List<GameObject> collectablePrefabs;
     [SerializeField] private List<GameObject> nonCollectablePrefabs;
     [SerializeField] private Transform spawnArea;
@@ -50,7 +51,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnCubes()
     {
-        yield return new WaitForSeconds(Random.Range(0.3f, 2));
+        yield return new WaitForSeconds(Random.Range(cubeSpawnTimeRange.x, cubeSpawnTimeRange.y));
         SpawnNonCollectable();
         StartCoroutine(SpawnCubes());
     }

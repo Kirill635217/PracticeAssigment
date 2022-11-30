@@ -30,7 +30,7 @@ public abstract class CharacterMovement : MonoBehaviour
         Move();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         Move();
     }

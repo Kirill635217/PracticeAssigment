@@ -11,16 +11,12 @@ public class GameStats : StatsCapture
     private void Awake()
     {
         Instance = this;
+        StartCapture();
     }
 
     public override void ObjectCollected()
     {
         base.ObjectCollected();
         TimeOfLastCollectable = (int)CapturedStats.SessionDuration;
-    }
-
-    private void Start()
-    {
-        StartCapture();
     }
 }

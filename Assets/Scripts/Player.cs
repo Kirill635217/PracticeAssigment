@@ -55,6 +55,6 @@ public class Player : CharacterMovement
 
     private void Update()
     {
-        SetMoveDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // SetMoveDirection(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
     }
 }
